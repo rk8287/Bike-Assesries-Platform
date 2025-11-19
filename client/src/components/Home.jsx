@@ -10,7 +10,7 @@ function Home() {
     <div className="min-h-screen bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-[#0b0b0b] to-[#0f1724] text-white pb-16">
       <main className="pt-[90px]">
         <h2
-          className="text-center text-xl sm:text-1xl md:text-2xl 
+          className="text-center sm:text-sm md:text-2xl 
              font-semibold tracking-wide text-black"
           style={{ fontFamily: "Poppins, sans-serif" }}
         >

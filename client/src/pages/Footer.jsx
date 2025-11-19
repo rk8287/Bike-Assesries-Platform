@@ -1,4 +1,4 @@
-import React from "react";
+import logo from "../assets/logo.png";
 import {
   FaInstagram,
   FaFacebook,
@@ -13,12 +13,21 @@ function Footer() {
   return (
     <footer className="bg-black text-white pt-14 pb-10 mt-12 border-t border-white/10">
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-10">
-
         {/* Brand */}
+
         <div>
-          <h2 className="text-2xl font-bold text-yellow-400">
-            Dug Dug Motorcycles
-          </h2>
+          <div className="flex items-center gap-3">
+            <img
+              src={logo}
+              alt="Brand Logo"
+              className="w-12 h-12 sm:w-14 sm:h-14 object-contain rounded-full"
+            />
+
+            <h2 className="text-2xl font-bold text-yellow-400">
+              Bullet Meri Jaan
+            </h2>
+          </div>
+
           <p className="mt-3 text-sm text-white/70 leading-relaxed">
             Premium aftermarket accessories and parts for Royal Enfield & modern
             classic motorcycles. Trusted by thousands of riders.
@@ -31,7 +40,9 @@ function Footer() {
             Customer Care
           </h3>
           <ul className="space-y-2 text-white/70 text-sm">
-            <li className="hover:text-yellow-400 cursor-pointer">Help Center</li>
+            <li className="hover:text-yellow-400 cursor-pointer">
+              Help Center
+            </li>
             <li className="hover:text-yellow-400 cursor-pointer">
               Shipping & Returns
             </li>
@@ -44,17 +55,25 @@ function Footer() {
         <div>
           <h3 className="text-lg font-semibold text-white mb-3">Quick Links</h3>
           <ul className="space-y-2 text-white/70 text-sm">
-            <li className="hover:text-yellow-400 cursor-pointer">Accessories</li>
+            <li className="hover:text-yellow-400 cursor-pointer">
+              Accessories
+            </li>
             <li className="hover:text-yellow-400 cursor-pointer">About Us</li>
-            <li className="hover:text-yellow-400 cursor-pointer">Track Order</li>
-            <li className="hover:text-yellow-400 cursor-pointer">Privacy Policy</li>
+            <li className="hover:text-yellow-400 cursor-pointer">
+              Track Order
+            </li>
+            <li className="hover:text-yellow-400 cursor-pointer">
+              Privacy Policy
+            </li>
           </ul>
         </div>
 
         {/* Social + Payment Icons */}
         <div>
-          <h3 className="text-lg font-semibold text-white mb-3">Stay Connected</h3>
-          
+          <h3 className="text-lg font-semibold text-white mb-3">
+            Stay Connected
+          </h3>
+
           {/* Social */}
           <div className="flex items-center gap-4 text-xl mb-4">
             <FaInstagram className="hover:text-yellow-400 cursor-pointer" />
@@ -63,7 +82,9 @@ function Footer() {
           </div>
 
           {/* Payment Icons */}
-          <h4 className="text-sm font-semibold text-white mb-2">100% Secure Payments</h4>
+          <h4 className="text-sm font-semibold text-white mb-2">
+            100% Secure Payments
+          </h4>
           <div className="flex items-center gap-4 text-3xl">
             <FaCcVisa />
             <FaCcMastercard />
@@ -79,7 +100,7 @@ function Footer() {
 
       {/* Bottom Bar */}
       <div className="mt-10 pt-6 border-t border-white/10 text-center text-white/60 text-sm">
-        © {new Date().getFullYear()} Dug Dug Motorcycles. All rights reserved.
+        © {new Date().getFullYear()} Bullet Meri Jaan Accessories. All rights reserved.
       </div>
     </footer>
   );
