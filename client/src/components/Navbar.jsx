@@ -6,7 +6,7 @@ import logo from '../assets/logo.png'
 function Navbar() {
   return (
     <header
-      className="fixed w-full top-[38px] sm:top-[42px] z-40 
+      className="fixed w-full top-[28px] sm:top-[42px] z-40 
                        bg-black backdrop-blur-md border-b border-white/5"
     >
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">

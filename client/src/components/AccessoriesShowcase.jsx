@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Heart } from "lucide-react";
+import { Link } from "react-router-dom";
 
 // Accessories data
 const ACCESSORIES = [
@@ -53,7 +54,7 @@ function AccessoriesShowcase() {
         </div>
 
         {/* Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <Link to={'/product/sfs'} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {ACCESSORIES.map((p) => (
             <motion.div
               key={p.id}
@@ -97,7 +98,7 @@ function AccessoriesShowcase() {
               </div>
             </motion.div>
           ))}
-        </div>
+        </Link>
       </div>
     </section>
   );

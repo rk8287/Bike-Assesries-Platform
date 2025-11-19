@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const CATEGORIES = [
   {
@@ -75,7 +76,7 @@ function CategoryGrid() {
         </div>
 
         {/* Category Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-5">
+        <Link to={'/product/sfsf'} className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-5">
           {CATEGORIES.map((c) => (
             <div
               key={c.id}
@@ -91,7 +92,7 @@ function CategoryGrid() {
               </div>
             </div>
           ))}
-        </div>
+        </Link>
       </div>
     </section>
   );
