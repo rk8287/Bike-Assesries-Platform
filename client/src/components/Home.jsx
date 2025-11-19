@@ -1,21 +1,13 @@
 import React from "react";
-import Navbar from "./Navbar";
 import HeroCarousel from "./HeroCarousel";
 import CategoryGrid from "./CategoryGrid";
 import AccessoriesShowcase from "./AccessoriesShowcase";
 import AutoScrollTicker from "./AutoScrollTicker";
-import OfferNavbar from "./OfferNavbar";
 import RoyalEnfieldModels from "./RoyalEnfieldModels";
 
 function Home() {
   return (
     <div className="min-h-screen bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-[#0b0b0b] to-[#0f1724] text-white pb-16">
-      <OfferNavbar />
-
-      <div className="mt-[37px]">
-        <Navbar />
-      </div>
-
       <main className="pt-[90px]">
         <h2
           className="text-center text-xl sm:text-1xl md:text-2xl 
@@ -29,7 +21,7 @@ function Home() {
         <CategoryGrid />
         <AccessoriesShowcase />
         <AutoScrollTicker />
-        <RoyalEnfieldModels/>
+        <RoyalEnfieldModels />
       </main>
 
       {/* Floating Chat Button */}

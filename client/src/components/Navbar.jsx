@@ -1,32 +1,51 @@
-import React from 'react';
-import { Menu, Search, Heart, User, ShoppingCart } from 'lucide-react';
+import React from "react";
+import { Menu, Search, Heart, User, ShoppingCart } from "lucide-react";
+import { Link } from "react-router-dom";
+import logo from '../assets/logo.png'
 
 function Navbar() {
   return (
-    <header className="fixed w-full top-[38px] sm:top-[42px] z-40 
-                       bg-black backdrop-blur-md border-b border-white/5">
-
+    <header
+      className="fixed w-full top-[38px] sm:top-[42px] z-40 
+                       bg-black backdrop-blur-md border-b border-white/5"
+    >
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-14 sm:h-16">
+          
 
-          {/* LEFT SECTION */}
           <div className="flex items-center gap-3 sm:gap-4">
-            <button className="p-1.5 sm:p-2 rounded-md hover:bg-white/10 transition">
-              <Menu className="text-white" size={20} />
-            </button>
+            <Link to="/" className="flex items-center gap-2 sm:gap-3">
+              
+              <div
+                className="w-12 h-12 sm:w-14 sm:h-14 
+               rounded-full bg-white 
+               flex items-center justify-center 
+               overflow-hidden shadow-lg"
+              >
+                <img
+                  src={logo} 
+                  alt="Bullet Meri Jaan Logo"
+                  className="w-full h-full object-contain"
+                />
+              </div>
 
-            <a className="flex items-center gap-2" href="#">
-              <div className="w-9 h-9 sm:w-10 sm:h-10 
-                              rounded-full bg-yellow-400 
-                              flex items-center justify-center 
-                              font-bold text-black">
-                DD
-              </div>
+              
               <div className="hidden sm:block leading-tight">
-                <div className="text-white font-bold text-sm sm:text-base">Dug Dug</div>
-                <div className="text-xs text-white/70 -mt-0.5">Motorcycles</div>
+                <h1
+                  className="text-white font-extrabold text-lg tracking-wide"
+                  style={{ fontFamily: "Poppins, sans-serif" }}
+                >
+                  Bullet <span className="text-yellow-400">Meri</span> Jaan
+                </h1>
+
+                <p
+                  className="text-xs text-white/60"
+                  style={{ fontFamily: "Inter, sans-serif" }}
+                >
+                  Bike Accessories
+                </p>
               </div>
-            </a>
+            </Link>
           </div>
 
           {/* SEARCH BAR */}
@@ -51,18 +70,23 @@ function Navbar() {
               <Heart className="text-white" size={18} />
             </button>
 
-            <button className="p-1.5 sm:p-2 rounded-md hover:bg-white/10">
+            <Link
+              to={"/profile"}
+              className="p-1.5 sm:p-2 rounded-md hover:bg-white/10"
+            >
               <User className="text-white" size={18} />
-            </button>
+            </Link>
 
-            <button className="relative p-1.5 sm:p-2 rounded-md hover:bg-white/10">
+            <Link
+              to={"/cart"}
+              className="relative p-1.5 sm:p-2 rounded-md hover:bg-white/10"
+            >
               <ShoppingCart className="text-white" size={18} />
               <span className="absolute -top-1 -right-1 text-[10px] bg-yellow-400 text-black rounded-full px-[5px]">
                 3
               </span>
-            </button>
+            </Link>
           </div>
-
         </div>
       </div>
     </header>

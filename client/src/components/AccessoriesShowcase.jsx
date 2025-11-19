@@ -38,12 +38,10 @@ function AccessoriesShowcase() {
   return (
     <section className="mt-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
         {/* Title Section */}
         <div className="flex items-center justify-between mb-6">
           <h3 className="text-2xl font-bold text-black">
-            New{" "}
-            <span className="text-yellow-500 drop-shadow-sm">ARRIVALS</span>
+            New <span className="text-yellow-500 drop-shadow-sm">ARRIVALS</span>
           </h3>
 
           <a

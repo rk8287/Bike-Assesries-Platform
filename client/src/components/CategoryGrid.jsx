@@ -1,24 +1,54 @@
 import React from "react";
 
 const CATEGORIES = [
-  { id: 1, title: "Helmets", img: "https://www.dugdugmotorcycles.com/wp-content/uploads/2021/06/royal-enfield-accessories-dug-dug-motorcycles.jpg" },
-  { id: 2, title: "Riding Gloves", img: "https://www.dugdugmotorcycles.com/wp-content/uploads/2021/06/bajaj-accessories-dug-dug-motorcycles-1.jpg" },
-  { id: 3, title: "Bike Lights", img: "https://www.dugdugmotorcycles.com/wp-content/uploads/2021/06/yamaha-accessories-dug-dug-motorcycles-1.jpg" },
-  { id: 4, title: "Crash Guards", img: "https://www.dugdugmotorcycles.com/wp-content/uploads/2021/06/ktm-accessories-dug-dug-motorcycles.jpg" },
-  { id: 5, title: "Exhausts", img: "https://www.dugdugmotorcycles.com/wp-content/uploads/2021/06/honda-accessories-dug-dug-motorcycles-1.jpg" },
-  { id: 6, title: "Lubricants", img: "https://www.dugdugmotorcycles.com/wp-content/uploads/2021/06/tvs-accessories-dug-dug-motorcycles-1.jpg" },
-  { id: 7, title: "Bags & Luggage", img: "https://www.dugdugmotorcycles.com/wp-content/uploads/2021/06/Jawa-accessories-dug-dug-motorcycles.jpg" },
-  { id: 8, title: "Radiator Grills", img: "https://www.dugdugmotorcycles.com/wp-content/uploads/2021/06/bajaj-accessories-dug-dug-motorcycles-1.jpg" },
+  {
+    id: 1,
+    title: "Helmets",
+    img: "https://www.dugdugmotorcycles.com/wp-content/uploads/2021/06/royal-enfield-accessories-dug-dug-motorcycles.jpg",
+  },
+  {
+    id: 2,
+    title: "Riding Gloves",
+    img: "https://www.dugdugmotorcycles.com/wp-content/uploads/2021/06/bajaj-accessories-dug-dug-motorcycles-1.jpg",
+  },
+  {
+    id: 3,
+    title: "Bike Lights",
+    img: "https://www.dugdugmotorcycles.com/wp-content/uploads/2021/06/yamaha-accessories-dug-dug-motorcycles-1.jpg",
+  },
+  {
+    id: 4,
+    title: "Crash Guards",
+    img: "https://www.dugdugmotorcycles.com/wp-content/uploads/2021/06/ktm-accessories-dug-dug-motorcycles.jpg",
+  },
+  {
+    id: 5,
+    title: "Exhausts",
+    img: "https://www.dugdugmotorcycles.com/wp-content/uploads/2021/06/honda-accessories-dug-dug-motorcycles-1.jpg",
+  },
+  {
+    id: 6,
+    title: "Lubricants",
+    img: "https://www.dugdugmotorcycles.com/wp-content/uploads/2021/06/tvs-accessories-dug-dug-motorcycles-1.jpg",
+  },
+  {
+    id: 7,
+    title: "Bags & Luggage",
+    img: "https://www.dugdugmotorcycles.com/wp-content/uploads/2021/06/Jawa-accessories-dug-dug-motorcycles.jpg",
+  },
+  {
+    id: 8,
+    title: "Radiator Grills",
+    img: "https://www.dugdugmotorcycles.com/wp-content/uploads/2021/06/bajaj-accessories-dug-dug-motorcycles-1.jpg",
+  },
 ];
 
 function CategoryGrid() {
   return (
     <section className="mt-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
         <div className="mb-12">
           <div className="flex items-center justify-between">
-            
             <div>
               <h2
                 className="text-3xl md:text-4xl font-extrabold tracking-[2px]
@@ -62,7 +92,6 @@ function CategoryGrid() {
             </div>
           ))}
         </div>
-
       </div>
     </section>
   );

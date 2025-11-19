@@ -68,13 +68,12 @@ function RoyalEnfieldModels() {
   return (
     <section className="mt-12">
       <div className="max-w-7xl mx-auto px-4">
-
         {/* Heading */}
         <h2 className="text-center text-3xl font-bold tracking-wide text-gray-800 mb-10">
           ROYAL ENFIELD
         </h2>
 
-        {/* Grid */}
+        
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-8">
           {bikes.map((bike) => (
             <Link key={bike.id} to={bike.link}>
@@ -88,13 +87,13 @@ function RoyalEnfieldModels() {
                   />
                 </div>
 
-                {/* Title */}
+                
                 <div className="mt-3 text-center">
                   <p className="text-sm sm:text-base font-semibold text-gray-900 tracking-wide">
                     {bike.name}
                   </p>
 
-                  {/* underline */}
+                  
                   <span className="block mx-auto mt-2 w-10 border-b border-gray-300"></span>
                 </div>
               </div>
