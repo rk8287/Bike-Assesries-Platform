@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import banner1 from '../assets/banner1';
+import banner2 from '../assets/banner1';
+import banner3 from '../assets/banner1';
 
-const IMAGES = [
-  "/src/assets/banner1.webp",
-  "/src/assets/banner2.webp",
-  "/src/assets/banner3.webp",
-];
+const IMAGES = [banner1, banner2, banner3];
 
 function HeroCarousel() {
   const [idx, setIdx] = useState(0);
