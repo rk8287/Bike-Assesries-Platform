@@ -1,6 +1,5 @@
 import React from "react";
 import HeroCarousel from "./HeroCarousel";
-import CategoryGrid from "./CategoryGrid";
 import AccessoriesShowcase from "./AccessoriesShowcase";
 import AutoScrollTicker from "./AutoScrollTicker";
 import RoyalEnfieldModels from "./RoyalEnfieldModels";
@@ -18,7 +17,6 @@ function Home() {
         </h2>
 
         <HeroCarousel className="mt-4" />
-        <CategoryGrid />
         <AccessoriesShowcase />
         <AutoScrollTicker />
         <RoyalEnfieldModels />

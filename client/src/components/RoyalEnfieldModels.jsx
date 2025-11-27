@@ -68,10 +68,20 @@ function RoyalEnfieldModels() {
   return (
     <section className="mt-12">
       <div className="max-w-7xl mx-auto px-4">
-        {/* Heading */}
-        <h2 className="text-center text-3xl font-bold tracking-wide text-gray-800 mb-10">
-          ROYAL ENFIELD
-        </h2>
+         <div>
+              <h2
+                className="text-3xl md:text-4xl font-extrabold tracking-[2px]
+                   text-black uppercase"
+                style={{ fontFamily: "Poppins, sans-serif" }}
+              >
+                Royal{" "}
+                <span className="bg-gradient-to-r from-yellow-300 via-yellow-500 to-yellow-300 bg-clip-text text-transparent">
+                  Enfield
+                </span>
+              </h2>
+
+              <div className="mt-3 w-28 h-[3px] bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-full animate-pulse" />
+            </div>
 
         
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-8">
