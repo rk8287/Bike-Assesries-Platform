@@ -7,16 +7,16 @@ import RoyalEnfieldModels from "./RoyalEnfieldModels";
 function Home() {
   return (
     <div className="min-h-screen bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-[#0b0b0b] to-[#0f1724] text-white pb-16">
-      <main className="pt-[90px]">
+      <main className="pt-[18px]">
         <h2
-          className="text-center sm:text-sm md:text-2xl 
-             font-semibold tracking-wide text-black"
+          className="text-center text-[10px] sm:text-lg md:text-2xl 
+               font-semibold tracking-wide text-black mt-3 px-3"
           style={{ fontFamily: "Poppins, sans-serif" }}
         >
           #India’s No.1 Motorcycle Accessories Store
         </h2>
 
-        <HeroCarousel className="mt-4" />
+        <HeroCarousel />
         <AccessoriesShowcase />
         <AutoScrollTicker />
         <RoyalEnfieldModels />

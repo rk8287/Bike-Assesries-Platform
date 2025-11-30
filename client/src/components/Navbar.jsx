@@ -1,95 +1,136 @@
-import React from "react";
-import { Menu, Search, Heart, User, ShoppingCart } from "lucide-react";
+import React, { useState } from "react";
+import { Menu, Search, Heart, User, ShoppingCart, X } from "lucide-react";
 import { Link } from "react-router-dom";
-import logo from '../assets/logo.png'
+import logo from "../assets/logo.png";
+import { useSelector } from "react-redux";
 
 function Navbar() {
+  const { user } = useSelector((state) => state.auth);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   return (
-    <header
-      className="fixed w-full top-[28px] sm:top-[42px] z-40 
-                       bg-black backdrop-blur-md border-b border-white/5"
-    >
-      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-14 sm:h-16">
-          
-
-          <div className="flex items-center gap-3 sm:gap-4">
-            <Link to="/" className="flex items-center gap-2 sm:gap-3">
-              
-              <div
-                className="w-12 h-12 sm:w-14 sm:h-14 
-               rounded-full bg-white 
-               flex items-center justify-center 
-               overflow-hidden shadow-lg"
+    <>
+      {/* Desktop Navbar */}
+      <header className="hidden sm:block fixed w-full top-11 z-40 bg-black backdrop-blur-md border-b border-white/5">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16">
+            
+            {/* Logo + Text */}
+            <Link to="/" className="flex items-center gap-3">
+              <div className="w-14 h-14 rounded-full bg-white flex items-center justify-center overflow-hidden shadow-lg">
+                <img src={logo} alt="Logo" className="w-full h-full object-contain" />
+              </div>
+              <h1
+                className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 via-orange-400 to-yellow-200 animate-gradient-x"
+                style={{ fontFamily: "Poppins, sans-serif" }}
               >
-                <img
-                  src={logo} 
-                  alt="Bullet Meri Jaan Logo"
-                  className="w-full h-full object-contain"
-                />
-              </div>
-
-              
-              <div className="hidden sm:block leading-tight">
-                <h1
-                  className="text-white font-extrabold text-lg tracking-wide"
-                  style={{ fontFamily: "Poppins, sans-serif" }}
-                >
-                  Bullet <span className="text-yellow-400">Meri</span> Jaan
-                </h1>
-
-                <p
-                  className="text-xs text-white/60"
-                  style={{ fontFamily: "Inter, sans-serif" }}
-                >
-                  Bike Accessories
-                </p>
-              </div>
+                Bullet Meri Jaan
+              </h1>
             </Link>
-          </div>
 
-          {/* SEARCH BAR */}
-          <div className="flex-1 px-2 sm:px-4">
-            <div className="relative max-w-md mx-auto">
-              <input
-                className="w-full pl-4 pr-10 py-1.5 sm:py-2 
-                           rounded-full bg-white/10 text-white 
-                           placeholder:text-white/50 text-sm sm:text-base
-                           outline-none border border-white/10"
-                placeholder="Search accessories, bikes, parts..."
-              />
-              <div className="absolute right-3 top-1/2 -translate-y-1/2">
-                <Search className="text-white" size={18} />
+            {/* Search */}
+            <div className="flex-1 px-4">
+              <div className="relative max-w-md mx-auto">
+                <input
+                  className="w-full pl-4 pr-10 py-2 rounded-full bg-white/10 text-white placeholder:text-white/50 outline-none border border-white/10"
+                  placeholder="Search accessories, bikes, parts..."
+                />
+                <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                  <Search className="text-white" size={18} />
+                </div>
               </div>
             </div>
-          </div>
 
-          {/* RIGHT ICONS */}
-          <div className="flex items-center gap-2 sm:gap-3">
-            <button className="p-1.5 sm:p-2 rounded-md hover:bg-white/10">
-              <Heart className="text-white" size={18} />
-            </button>
-
-            <Link
-              to={"/profile"}
-              className="p-1.5 sm:p-2 rounded-md hover:bg-white/10"
-            >
-              <User className="text-white" size={18} />
-            </Link>
-
-            <Link
-              to={"/cart"}
-              className="relative p-1.5 sm:p-2 rounded-md hover:bg-white/10"
-            >
-              <ShoppingCart className="text-white" size={18} />
-              <span className="absolute -top-1 -right-1 text-[10px] bg-yellow-400 text-black rounded-full px-[5px]">
-                3
-              </span>
-            </Link>
+            {/* Right Icons */}
+            <div className="flex items-center gap-3">
+              <button className="p-2 rounded-md hover:bg-white/10"><Heart className="text-white" size={18} /></button>
+              <Link to={user ? "/profile" : "/login"}><User className="text-white" size={18} /></Link>
+              <Link to="/cart" className="relative p-2 rounded-md hover:bg-white/10">
+                <ShoppingCart className="text-white" size={18} />
+                <span className="absolute -top-1 -right-1 text-[10px] bg-yellow-400 text-black rounded-full px-[5px]">3</span>
+              </Link>
+              {user?.role === "admin" && (
+                <Link
+                  to="/admin/dashboard"
+                  className="ml-3 px-4 py-2 rounded-lg bg-yellow-400 text-black font-semibold text-base hover:bg-yellow-500"
+                >
+                  Admin Dashboard
+                </Link>
+              )}
+            </div>
           </div>
         </div>
-      </div>
-    </header>
+      </header>
+
+      {/* Mobile Navbar */}
+      <header className="sm:hidden fixed w-full top-11 z-40 bg-black backdrop-blur-md border-b border-white/5">
+        <div className="flex items-center justify-between px-4 py-2">
+
+          {/* Hamburger */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="p-2 rounded-md hover:bg-white/10"
+          >
+            {mobileMenuOpen ? <X className="text-white" size={20} /> : <Menu className="text-white" size={20} />}
+          </button>
+
+          {/* Logo + Text */}
+          <Link to="/" className="flex items-center justify-center flex-1 gap-2">
+            <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center overflow-hidden shadow-lg">
+              <img src={logo} alt="Logo" className="w-full h-full object-contain" />
+            </div>
+            <h1
+              className="text-lg font-bold bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 via-orange-400 to-yellow-200 animate-gradient-x truncate"
+              style={{ fontFamily: "Poppins, sans-serif" }}
+            >
+              Bullet Meri Jaan
+            </h1>
+          </Link>
+
+          {/* Cart */}
+          <Link to="/cart" className="relative p-2 rounded-md hover:bg-white/10">
+            <ShoppingCart className="text-white" size={20} />
+            <span className="absolute -top-1 -right-1 text-[10px] bg-yellow-400 text-black rounded-full px-[5px]">3</span>
+          </Link>
+        </div>
+
+        {/* Mobile Search Bar */}
+        <div className="px-4 py-2">
+          <div className="relative">
+            <input
+              type="text"
+              placeholder="Search accessories, bikes, parts..."
+              className="w-full pl-4 pr-10 py-2 rounded-full bg-white/10 text-white placeholder:text-white/50 outline-none border border-white/10"
+            />
+            <Search className="absolute right-3 top-1/2 -translate-y-1/2 text-white" size={18} />
+          </div>
+        </div>
+
+        {/* Mobile Menu */}
+        <div className={`transition-all duration-300 ease-in-out ${mobileMenuOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0"} overflow-hidden bg-black`}>
+          <div className="flex flex-col gap-2 px-4 py-3">
+            <Link to={user ? "/profile" : "/login"} className="text-white font-medium p-2 rounded-md hover:bg-white/10 transition w-full text-center">Profile</Link>
+            <button className="text-white font-medium p-2 rounded-md hover:bg-white/10 transition w-full text-center">Wishlist</button>
+            {user?.role === "admin" && (
+              <Link to="/admin/dashboard" className="text-black bg-yellow-400 font-semibold p-2 rounded-md hover:bg-yellow-500 transition w-full text-center">Admin Dashboard</Link>
+            )}
+          </div>
+        </div>
+      </header>
+
+      {/* Gradient Animation Keyframes */}
+      <style jsx global>{`
+        @keyframes gradient-x {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+        .animate-gradient-x {
+          background-size: 200% 200%;
+          animation: gradient-x 4s ease infinite;
+        }
+      `}</style>
+    </>
   );
 }
 

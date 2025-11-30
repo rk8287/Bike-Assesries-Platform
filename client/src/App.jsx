@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 import Home from "./components/Home";
@@ -11,27 +10,133 @@ import Signup from "./pages/Signup";
 import Profile from "./pages/Profile";
 import Cart from "./pages/Cart";
 import CheckoutPage from "./pages/CheckoutPage";
+import { Toaster } from "sonner";
+
+// Admin
+import AdminDashboard from "./admin/AdminDashboard";
+import ContactsPage from "./admin/ContactsPage";
+import ProductPage from "./admin/ProductPage";
+import UsersPage from "./admin/UsersPage";
+import CreateProduct from "./admin/CreateProduct";
+
+import ProtectedRoute from "./components/ProtectedRoute";
+import PreventAuthRoute from "./components/PreventAuthRoute";
+import AdminRoute from "./components/AdminRoute";
 
 function App() {
   return (
-    <Router>
-      <OfferNavbar />
-
-      <div className="mt-[37px]">
+    <>
+      <Toaster richColors position="top-center" />
+      <Router>
+       
+        <OfferNavbar />
         <Navbar />
-      </div>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/check-out" element={<CheckoutPage />} />
-        <Route path="/product/:id" element={<ProductDetails />} />
-      </Routes>
 
-      <Footer />
-    </Router>
+        <div className="pt-[92px] sm:pt-[108px]">
+          <Routes>
+            {/* Public Routes */}
+            <Route path="/" element={<Home />} />
+
+            {/* Prevent logged-in users from opening login/signup */}
+            <Route
+              path="/login"
+              element={
+                <PreventAuthRoute>
+                  <Login />
+                </PreventAuthRoute>
+              }
+            />
+
+            <Route
+              path="/signup"
+              element={
+                <PreventAuthRoute>
+                  <Signup />
+                </PreventAuthRoute>
+              }
+            />
+
+            {/* User Protected */}
+            <Route
+              path="/profile"
+              element={
+                <ProtectedRoute>
+                  <Profile />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/cart"
+              element={
+                <ProtectedRoute>
+                  <Cart />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/check-out"
+              element={
+                <ProtectedRoute>
+                  <CheckoutPage />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route path="/product/:id" element={<ProductDetails />} />
+
+            {/* Admin Protected */}
+            <Route
+              path="/admin/dashboard"
+              element={
+                <AdminRoute>
+                  <AdminDashboard />
+                </AdminRoute>
+              }
+            />
+
+            <Route
+              path="/admin/contact"
+              element={
+                <AdminRoute>
+                  <ContactsPage />
+                </AdminRoute>
+              }
+            />
+
+            <Route
+              path="/admin/product"
+              element={
+                <AdminRoute>
+                  <ProductPage />
+                </AdminRoute>
+              }
+            />
+
+            <Route
+              path="/admin/users"
+              element={
+                <AdminRoute>
+                  <UsersPage />
+                </AdminRoute>
+              }
+            />
+
+            <Route
+              path="/admin/createProduct"
+              element={
+                <AdminRoute>
+                  <CreateProduct />
+                </AdminRoute>
+              }
+            />
+          </Routes>
+
+          <Footer />
+        </div>
+      </Router>
+    </>
   );
 }
 
