@@ -2,12 +2,27 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { useDispatch } from "react-redux";
 import { createProduct } from "../slices/productSlice";
-import {toast} from "sonner";
+import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 
 function CreateProduct() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const royalEnfieldBrands = [
+    "Classic 350",
+    "Bullet 350",
+    "Hunter 350",
+    "Meteor 350",
+    "Scram 411",
+    "Himalayan 450",
+    "Interceptor 650",
+    "Continental GT 650",
+    "Super Meteor 650",
+    "Shotgun 650",
+    "Thunderbird 350X",
+    "Thunderbird 500X",
+  ];
 
   const [formData, setFormData] = useState({
     name: "",
@@ -100,16 +115,23 @@ function CreateProduct() {
             />
           </div>
 
-          {/* Brand Field */}
+          {/* Updated Brand Field (Dropdown) */}
           <div className="md:col-span-2">
-            <label className="block font-semibold mb-1">Brand</label>
-            <input
-              type="text"
+            <label className="block font-semibold mb-1">Select Royal Enfield Model</label>
+            <select
               name="brand"
               value={formData.brand}
               onChange={handleChange}
-              className="w-full bg-gray-100 p-3 rounded-xl"
-            />
+              className="w-full bg-gray-100 p-3 rounded-xl cursor-pointer"
+              required
+            >
+              <option value="">Select Brand</option>
+              {royalEnfieldBrands.map((bike, index) => (
+                <option key={index} value={bike}>
+                  {bike}
+                </option>
+              ))}
+            </select>
           </div>
 
           {/* Description */}

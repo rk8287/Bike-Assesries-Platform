@@ -22,6 +22,8 @@ app.use("/api/auth", require("./routes/auth"));
 app.use("/api/products", require("./routes/product"));
 app.use("/api/contacts", require("./routes/contact"));
 app.use("/api/users", require("./routes/user"));
+app.use("/api/orders", require("./routes/order"));
+
 
 
 

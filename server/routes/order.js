@@ -1,0 +1,16 @@
+const express = require("express");
+const { createOrder, getOrderById, getOrdersByUser } = require("../controllers/orderController");
+
+const router = express.Router();
+
+// Create new order
+router.post("/", createOrder);
+
+// Get order by ID
+router.get("/:id", getOrderById);
+
+// Get all orders by user
+router.get("/user/:userId", getOrdersByUser);
+
+
+module.exports = router;

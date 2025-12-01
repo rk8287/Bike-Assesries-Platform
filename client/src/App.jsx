@@ -22,6 +22,8 @@ import CreateProduct from "./admin/CreateProduct";
 import ProtectedRoute from "./components/ProtectedRoute";
 import PreventAuthRoute from "./components/PreventAuthRoute";
 import AdminRoute from "./components/AdminRoute";
+import Products from "./pages/Products";
+import SuccessPage from "./pages/SuccessPage";
 
 function App() {
   return (
@@ -37,7 +39,7 @@ function App() {
             {/* Public Routes */}
             <Route path="/" element={<Home />} />
 
-            {/* Prevent logged-in users from opening login/signup */}
+    
             <Route
               path="/login"
               element={
@@ -56,7 +58,7 @@ function App() {
               }
             />
 
-            {/* User Protected */}
+           
             <Route
               path="/profile"
               element={
@@ -84,7 +86,11 @@ function App() {
               }
             />
 
+             <Route path="/products" element={<Products />} />
+
             <Route path="/product/:id" element={<ProductDetails />} />
+            <Route path="/success/:id" element={<SuccessPage />} />
+
 
             {/* Admin Protected */}
             <Route

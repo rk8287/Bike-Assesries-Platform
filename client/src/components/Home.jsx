@@ -42,7 +42,7 @@ function Home() {
         </svg>
       </a>
 
-      {/* Global marquee animation */}
+      {/* animation */}
       <style jsx global>{`
         @keyframes marquee {
           0% {
