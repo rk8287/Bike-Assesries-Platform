@@ -4,12 +4,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../slices/authSlice";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import Loader from "../components/Loader";
 
 function Signup() {
   const [formData, setFormData] = useState({ name: "", email: "", password: "" });
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { loading, error, user } = useSelector((state) => state.auth);
+
+  
+   if (loading) {
+    return <Loader />; // Show loader while fetching data
+  }
 
   const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
@@ -18,6 +24,7 @@ function Signup() {
     try {
       await dispatch(registerUser(formData)).unwrap();
       navigate("/"); // redirect after successful signup
+      toast.success("Signup Successful!");
     } catch {
       toast.error("Signup failed. Please try again.");
     }

@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../slices/authSlice";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import Loader from "../components/Loader";
 
 function Login() {
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -12,6 +13,10 @@ function Login() {
   const { loading, error, user } = useSelector((state) => state.auth);
 
   const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+
+   if (loading) {
+    return <Loader />; // Show loader while fetching data
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
