@@ -1,4 +1,3 @@
-// slice: orderSlice.js
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
@@ -31,13 +30,39 @@ export const fetchOrderById = createAsyncThunk(
   }
 );
 
-// ✅ New: Fetch all orders for a user
+// Fetch orders by user
 export const fetchOrdersByUser = createAsyncThunk(
   "orders/fetchOrdersByUser",
   async (userId, thunkAPI) => {
     try {
       const res = await axios.get(`${API_URL}/user/${userId}`);
-      return res.data; // should be an array of orders
+      return res.data; // array of orders
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.response.data);
+    }
+  }
+);
+
+// ✅ New: Fetch all orders (admin)
+export const fetchAllOrders = createAsyncThunk(
+  "orders/fetchAllOrders",
+  async (_, thunkAPI) => {
+    try {
+      const res = await axios.get(`${API_URL}/admin/all`);
+      return res.data; // array of all orders
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.response.data);
+    }
+  }
+);
+
+// ✅ New: Update order status (admin)
+export const updateOrderStatus = createAsyncThunk(
+  "orders/updateOrderStatus",
+  async ({ orderId, status }, thunkAPI) => {
+    try {
+      const res = await axios.put(`${API_URL}/status/${orderId}`, { status });
+      return res.data;
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response.data);
     }
@@ -47,8 +72,8 @@ export const fetchOrdersByUser = createAsyncThunk(
 const orderSlice = createSlice({
   name: "order",
   initialState: {
-    order: null,       // single order
-    orders: [],        // all orders of user
+    order: null, // single order
+    orders: [], // orders array (user or admin)
     loading: false,
     error: null,
   },
@@ -67,6 +92,7 @@ const orderSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
       })
+
       // Fetch Order by ID
       .addCase(fetchOrderById.pending, (state) => {
         state.loading = true;
@@ -79,16 +105,37 @@ const orderSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
       })
-      // ✅ Fetch Orders by User
+
+      // Fetch Orders by User
       .addCase(fetchOrdersByUser.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
       .addCase(fetchOrdersByUser.fulfilled, (state, action) => {
         state.loading = false;
-        state.orders = action.payload; // array of orders
+        state.orders = action.payload;
       })
       .addCase(fetchOrdersByUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      // ✅ Update Order Status (Admin)
+      .addCase(updateOrderStatus.fulfilled, (state, action) => {
+        state.orders = state.orders.map((o) =>
+          o._id === action.payload._id ? action.payload : o
+        );
+      })
+
+      // ✅ Fetch All Orders (Admin)
+      .addCase(fetchAllOrders.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchAllOrders.fulfilled, (state, action) => {
+        state.loading = false;
+        state.orders = action.payload;
+      })
+      .addCase(fetchAllOrders.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });

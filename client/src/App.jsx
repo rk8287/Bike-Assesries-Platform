@@ -26,6 +26,8 @@ import Products from "./pages/Products";
 import SuccessPage from "./pages/SuccessPage";
 import CheckoutRoute from "./components/CheckoutRoute";
 import SuccessRoute from "./components/SuccessRoute";
+import AdminOrder from "./admin/AdminOrder";
+import AdminOrderView from "./admin/AdminOrderView";
 
 function App() {
   return (
@@ -108,6 +110,18 @@ function App() {
                 </AdminRoute>
               }
             />
+
+            <Route
+              path="/admin/orders"
+              element={
+                <AdminRoute>
+                  <AdminOrder />
+                </AdminRoute>
+              }
+            />
+
+            <Route path="/admin/order/:id" element={<AdminRoute><AdminOrderView /></AdminRoute>} />
+
 
             <Route
               path="/admin/contact"

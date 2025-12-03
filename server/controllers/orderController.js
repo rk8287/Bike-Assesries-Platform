@@ -34,7 +34,8 @@ const createOrder = async (req, res) => {
 // Get order by ID
 const getOrderById = async (req, res) => {
   try {
-    const order = await Order.findOne({ orderId: req.params.id });
+    const order = await Order.findById(req.params.id);
+
 
     if (!order) return res.status(404).json({ message: "Order not found" });
 
@@ -61,4 +62,44 @@ const getOrdersByUser = async (req, res) => {
   }
 };
 
-module.exports = { createOrder, getOrderById, getOrdersByUser };
+
+// Get ALL Orders (Admin)
+const getAllOrders = async (req, res) => {
+  try {
+    const orders = await Order.find().sort({ createdAt: -1 });
+
+    if (!orders || orders.length === 0) {
+      return res.status(404).json({ message: "No orders found" });
+    }
+
+    res.json(orders);
+  } catch (err) {
+    console.error("ORDER ERROR =>", err.message);
+    res.status(500).json({ message: err.message });
+  }
+};
+
+
+const updateOrderStatus = async (req, res) => {
+  try {
+    const { status } = req.body;
+
+    const order = await Order.findByIdAndUpdate(
+      req.params.id,
+      { status },
+      { new: true }
+    );
+
+    if (!order) {
+      return res.status(404).json({ message: "Order not found" });
+    }
+
+    res.json(order);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({ message: "Server Error" });
+  }
+};
+
+
+module.exports = { createOrder, getOrderById, getOrdersByUser,getAllOrders, updateOrderStatus };
