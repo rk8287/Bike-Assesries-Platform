@@ -1,7 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const API_URL = "http://localhost:5000/api/auth";
+const API_URL = `${import.meta.env.VITE_API_URL}/auth`;
+
 
 // Read from localStorage
 const storedUser = localStorage.getItem("userInfo")
@@ -56,7 +57,7 @@ export const updateUserProfile = createAsyncThunk(
       const token = getState().auth.token;
 
       const { data } = await axios.put(
-        "http://localhost:5000/api/users/update-profile",
+       `${import.meta.env.VITE_API_URL}/users/update-profile`,
         updateData,
         { headers: { Authorization: `Bearer ${token}` } }
       );

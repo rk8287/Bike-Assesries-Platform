@@ -8,7 +8,8 @@ export const fetchUsers = createAsyncThunk(
       const token = getState().auth.token;
       console.log("TOKEN SENT TO BACKEND:", token);
 
-      const { data } = await axios.get("http://localhost:5000/api/users", {
+      const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/users`
+, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
