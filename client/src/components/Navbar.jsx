@@ -5,20 +5,22 @@ import logo from "../assets/logo.png";
 import { useSelector } from "react-redux";
 
 function Navbar() {
+  const navigate = useNavigate();
+
   const { user } = useSelector((state) => state.auth);
   const cartItems = useSelector((state) => state.cart.items);
   const cartCount = cartItems.reduce((acc, i) => acc + (i.qty || 1), 0);
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
 
-  const navigate = useNavigate();
+  // 🔥 SEARCH STATE
+  const [search, setSearch] = useState("");
 
-  // 🔥 SEARCH SUBMIT FUNCTION
-  const submitSearch = () => {
-    if (!searchQuery.trim()) return;
-    navigate(`/products?search=${searchQuery.trim()}`);
-    setSearchQuery("");
+  // 🔥 FUNCTION TO RUN SEARCH
+  const handleSearch = () => {
+    if (!search.trim()) return;
+    navigate(`/products?search=${search}`);
+    setSearch("");
   };
 
   return (
@@ -27,43 +29,50 @@ function Navbar() {
       <header className="hidden sm:block fixed w-full top-11 z-40 bg-black backdrop-blur-md border-b border-white/5">
         <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
-            {/* Logo */}
+            {/* Logo + Text */}
             <Link to="/" className="flex items-center gap-3">
               <div className="w-14 h-14 rounded-full bg-white flex items-center justify-center overflow-hidden shadow-lg">
                 <img src={logo} alt="Logo" className="w-full h-full object-contain" />
               </div>
-              <h1 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 via-orange-400 to-yellow-200 animate-gradient-x">
+              <h1
+                className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 via-orange-400 to-yellow-200 animate-gradient-x"
+                style={{ fontFamily: "Poppins, sans-serif" }}
+              >
                 Bullet Meri Jaan
               </h1>
             </Link>
 
-            {/* Search */}
+            {/* Search Bar */}
             <div className="flex-1 px-4">
               <div className="relative max-w-md mx-auto">
                 <input
                   className="w-full pl-4 pr-10 py-2 rounded-full bg-white/10 text-white placeholder:text-white/50 outline-none border border-white/10"
                   placeholder="Search accessories, bikes, parts..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  onKeyDown={(e) => e.key === "Enter" && submitSearch()}
+                  
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+
+                  onKeyDown={(e) => e.key === "Enter" && handleSearch()}
                 />
-                <button
-                  onClick={submitSearch}
-                  className="absolute right-3 top-1/2 -translate-y-1/2"
+                <div
+                  className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer"
+                  onClick={handleSearch}
                 >
                   <Search className="text-white" size={18} />
-                </button>
+                </div>
               </div>
             </div>
 
-            {/* Icons */}
+            {/* Right Icons */}
             <div className="flex items-center gap-3">
               <button className="p-2 rounded-md hover:bg-white/10">
                 <Heart className="text-white" size={18} />
               </button>
+
               <Link to={user ? "/profile" : "/login"}>
                 <User className="text-white" size={18} />
               </Link>
+
               <Link to="/cart" className="relative p-2 rounded-md hover:bg-white/10">
                 <ShoppingCart className="text-white" size={18} />
                 {cartCount > 0 && (
@@ -72,6 +81,15 @@ function Navbar() {
                   </span>
                 )}
               </Link>
+
+              {user?.role === "admin" && (
+                <Link
+                  to="/admin/dashboard"
+                  className="ml-3 px-4 py-2 rounded-lg bg-yellow-400 text-black font-semibold text-base hover:bg-yellow-500"
+                >
+                  Admin Dashboard
+                </Link>
+              )}
             </div>
           </div>
         </div>
@@ -85,7 +103,11 @@ function Navbar() {
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="p-2 rounded-md hover:bg-white/10"
           >
-            {mobileMenuOpen ? <X className="text-white" size={20} /> : <Menu className="text-white" size={20} />}
+            {mobileMenuOpen ? (
+              <X className="text-white" size={20} />
+            ) : (
+              <Menu className="text-white" size={20} />
+            )}
           </button>
 
           {/* Logo */}
@@ -93,7 +115,10 @@ function Navbar() {
             <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center overflow-hidden shadow-lg">
               <img src={logo} alt="Logo" className="w-full h-full object-contain" />
             </div>
-            <h1 className="text-lg font-bold bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 via-orange-400 to-yellow-200 animate-gradient-x truncate">
+            <h1
+              className="text-lg font-bold bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 via-orange-400 to-yellow-200 animate-gradient-x truncate"
+              style={{ fontFamily: "Poppins, sans-serif" }}
+            >
               Bullet Meri Jaan
             </h1>
           </Link>
@@ -109,23 +134,23 @@ function Navbar() {
           </Link>
         </div>
 
-        {/* Mobile Search */}
+        {/* Mobile Search Bar */}
         <div className="px-4 py-2">
           <div className="relative">
             <input
               type="text"
               placeholder="Search accessories, bikes, parts..."
               className="w-full pl-4 pr-10 py-2 rounded-full bg-white/10 text-white placeholder:text-white/50 outline-none border border-white/10"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && submitSearch()}
+
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && handleSearch()}
             />
-            <button
-              onClick={submitSearch}
-              className="absolute right-3 top-1/2 -translate-y-1/2"
-            >
-              <Search className="text-white" size={18} />
-            </button>
+            <Search
+              size={18}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-white cursor-pointer"
+              onClick={handleSearch}
+            />
           </div>
         </div>
 
@@ -142,12 +167,41 @@ function Navbar() {
             >
               Profile
             </Link>
+
             <button className="text-white font-medium p-2 rounded-md hover:bg-white/10 transition w-full text-center">
               Wishlist
             </button>
+
+            {user?.role === "admin" && (
+              <Link
+                to="/admin/dashboard"
+                className="text-black bg-yellow-400 font-semibold p-2 rounded-md hover:bg-yellow-500 transition w-full text-center"
+              >
+                Admin Dashboard
+              </Link>
+            )}
           </div>
         </div>
       </header>
+
+      {/* Animated Gradient */}
+      <style jsx global>{`
+        @keyframes gradient-x {
+          0% {
+            background-position: 0% 50%;
+          }
+          50% {
+            background-position: 100% 50%;
+          }
+          100% {
+            background-position: 0% 50%;
+          }
+        }
+        .animate-gradient-x {
+          background-size: 200% 200%;
+          animation: gradient-x 4s ease infinite;
+        }
+      `}</style>
     </>
   );
 }

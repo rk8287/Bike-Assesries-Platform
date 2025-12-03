@@ -6,7 +6,8 @@ export const fetchContacts = createAsyncThunk(
   async (_, { getState, rejectWithValue }) => {
     try {
       const token = getState().auth.token;
-      const { data } = await axios.get("http://localhost:5000/api/contacts", {
+      const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/contacts`
+, {
         headers: { Authorization: `Bearer ${token}` },
       });
       return data;
