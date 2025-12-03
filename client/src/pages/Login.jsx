@@ -19,7 +19,9 @@ function Login() {
       await dispatch(loginUser(formData)).unwrap();
       navigate("/"); // redirect after login
       toast.success("Login Successful!");
-    } catch {}
+    } catch {
+      toast.error("Login Failed. Please check your credentials!");
+    }
   };
 
   return (

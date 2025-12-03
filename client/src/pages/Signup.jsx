@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../slices/authSlice";
 import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 function Signup() {
   const [formData, setFormData] = useState({ name: "", email: "", password: "" });
@@ -17,7 +18,9 @@ function Signup() {
     try {
       await dispatch(registerUser(formData)).unwrap();
       navigate("/"); // redirect after successful signup
-    } catch {}
+    } catch {
+      toast.error("Signup failed. Please try again.");
+    }
   };
 
   return (

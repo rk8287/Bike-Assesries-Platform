@@ -16,8 +16,7 @@ const initialState = {
   error: null,
 };
 
-
-// Register
+// REGISTER
 export const registerUser = createAsyncThunk(
   "auth/registerUser",
   async (userData, { rejectWithValue }) => {
@@ -33,7 +32,7 @@ export const registerUser = createAsyncThunk(
   }
 );
 
-// Login
+// LOGIN
 export const loginUser = createAsyncThunk(
   "auth/loginUser",
   async (userData, { rejectWithValue }) => {
@@ -49,7 +48,30 @@ export const loginUser = createAsyncThunk(
   }
 );
 
-// Logout
+// UPDATE PROFILE
+export const updateUserProfile = createAsyncThunk(
+  "auth/updateUserProfile",
+  async (updateData, { getState, rejectWithValue }) => {
+    try {
+      const token = getState().auth.token;
+
+      const { data } = await axios.put(
+        "http://localhost:5000/api/users/update-profile",
+        updateData,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+
+      // Store updated user in localStorage (login remains active)
+      localStorage.setItem("userInfo", JSON.stringify(data));
+
+      return data;
+    } catch (err) {
+      return rejectWithValue(err.response?.data?.message || err.message);
+    }
+  }
+);
+
+// LOGOUT
 export const logoutUser = createAsyncThunk("auth/logoutUser", async () => {
   localStorage.removeItem("userInfo");
 });
@@ -65,13 +87,12 @@ const authSlice = createSlice({
       .addCase(registerUser.pending, (state) => {
         state.loading = true;
         state.error = null;
-        
       })
       .addCase(registerUser.fulfilled, (state, action) => {
         state.loading = false;
         state.user = action.payload;
         state.token = action.payload.token;
-         state.isAuthenticated = true;
+        state.isAuthenticated = true;
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.loading = false;
@@ -87,9 +108,24 @@ const authSlice = createSlice({
         state.loading = false;
         state.user = action.payload;
         state.token = action.payload.token;
-         state.isAuthenticated = true;
+        state.isAuthenticated = true;
       })
       .addCase(loginUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+
+      // UPDATE PROFILE
+      .addCase(updateUserProfile.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(updateUserProfile.fulfilled, (state, action) => {
+        state.loading = false;
+
+        state.user = action.payload; // Update Redux user
+        localStorage.setItem("userInfo", JSON.stringify(action.payload)); // Update localStorage
+      })
+      .addCase(updateUserProfile.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       })

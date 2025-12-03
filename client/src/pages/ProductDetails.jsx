@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "../slices/productSlice";
 import { addToCart } from "../slices/cartSlice";
 import { useParams, useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 function ProductDetails() {
   const dispatch = useDispatch();
@@ -27,23 +28,31 @@ function ProductDetails() {
     "Premium Quality Guaranteed",
   ];
 
-  if (loading) return <div className="text-center mt-20 text-xl">Loading...</div>;
-  if (!product) return <div className="text-center mt-20 text-xl">Product not found!</div>;
+  if (loading)
+    return <div className="text-center mt-20 text-xl">Loading...</div>;
+  if (!product)
+    return <div className="text-center mt-20 text-xl">Product not found!</div>;
 
   // Handle Buy Now
   const handleBuyNow = () => {
     const exists = cartItems.find((item) => item._id === product._id);
     if (!exists) {
       dispatch(addToCart(product));
+      toast.success("Product added to Cart!");
     }
     navigate("/check-out");
+    toast.success("Proceeding to Checkout!");
   };
 
   return (
     <div className="min-h-screen bg-white text-black pt-16 pb-20 px-6">
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-14">
         {/* LEFT: PRODUCT IMAGE */}
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="flex items-center justify-center">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="flex items-center justify-center"
+        >
           <motion.img
             src={product.image}
             alt={product.name}
@@ -64,14 +73,24 @@ function ProductDetails() {
           </div>
 
           <div className="mt-5">
-            <span className="text-4xl font-extrabold text-gray-900">₹{product.price}</span>
-            {product.oldPrice && <span className="line-through text-gray-400 ml-3">₹{product.oldPrice}</span>}
+            <span className="text-4xl font-extrabold text-gray-900">
+              ₹{product.price}
+            </span>
+            {product.oldPrice && (
+              <span className="line-through text-gray-400 ml-3">
+                ₹{product.oldPrice}
+              </span>
+            )}
           </div>
 
-          <p className="mt-6 text-gray-600 leading-relaxed">{product.description}</p>
+          <p className="mt-6 text-gray-600 leading-relaxed">
+            {product.description}
+          </p>
 
           <div className="mt-8">
-            <h3 className="text-lg font-semibold text-gray-900">Key Features</h3>
+            <h3 className="text-lg font-semibold text-gray-900">
+              Key Features
+            </h3>
             <ul className="mt-3 space-y-2 text-gray-600">
               {features.map((f, index) => (
                 <li key={index} className="flex items-center gap-2">
@@ -87,7 +106,10 @@ function ProductDetails() {
             <motion.button
               whileTap={{ scale: 0.95 }}
               className="bg-yellow-500 px-6 py-3 rounded-xl font-bold shadow-md hover:bg-yellow-400 transition"
-              onClick={() => dispatch(addToCart(product))}
+              onClick={() => {
+                dispatch(addToCart(product));
+                toast.success("Product added to cart!");
+              }}
             >
               Add to Cart
             </motion.button>

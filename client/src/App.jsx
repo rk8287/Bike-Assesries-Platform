@@ -24,13 +24,14 @@ import PreventAuthRoute from "./components/PreventAuthRoute";
 import AdminRoute from "./components/AdminRoute";
 import Products from "./pages/Products";
 import SuccessPage from "./pages/SuccessPage";
+import CheckoutRoute from "./components/CheckoutRoute";
+import SuccessRoute from "./components/SuccessRoute";
 
 function App() {
   return (
     <>
       <Toaster richColors position="top-center" />
       <Router>
-       
         <OfferNavbar />
         <Navbar />
 
@@ -39,7 +40,6 @@ function App() {
             {/* Public Routes */}
             <Route path="/" element={<Home />} />
 
-    
             <Route
               path="/login"
               element={
@@ -58,7 +58,6 @@ function App() {
               }
             />
 
-           
             <Route
               path="/profile"
               element={
@@ -81,16 +80,24 @@ function App() {
               path="/check-out"
               element={
                 <ProtectedRoute>
-                  <CheckoutPage />
+                  <CheckoutRoute>
+                    <CheckoutPage />
+                  </CheckoutRoute>
                 </ProtectedRoute>
               }
             />
 
-             <Route path="/products" element={<Products />} />
+            <Route path="/products" element={<Products />} />
 
             <Route path="/product/:id" element={<ProductDetails />} />
-            <Route path="/success/:id" element={<SuccessPage />} />
-
+            <Route
+              path="/success/:id"
+              element={
+                <SuccessRoute>
+                  <SuccessPage />
+                </SuccessRoute>
+              }
+            />
 
             {/* Admin Protected */}
             <Route

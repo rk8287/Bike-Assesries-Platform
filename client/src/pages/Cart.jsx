@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { FaTrash } from "react-icons/fa";
 import { removeFromCart } from "../slices/cartSlice";
 import { Link } from "react-router-dom";
+import {toast} from "sonner"
 
 function Cart() {
   const dispatch = useDispatch();
@@ -47,7 +48,7 @@ function Cart() {
 
               <button
                 className="text-red-500 hover:text-red-600 transition"
-                onClick={() => dispatch(removeFromCart(item._id))}
+                onClick={() => dispatch(removeFromCart(item._id)) && toast.success("Item removed from cart")}
               >
                 <FaTrash />
               </button>

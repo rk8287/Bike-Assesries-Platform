@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import './RoyalEnfieldModels.css';
 
 const bikes = [
   {
@@ -68,23 +69,21 @@ function RoyalEnfieldModels() {
   return (
     <section className="mt-12">
       <div className="max-w-7xl mx-auto px-4">
-         <div>
-              <h2
-                className="text-3xl md:text-4xl font-extrabold tracking-[2px]
-                   text-black uppercase"
-                style={{ fontFamily: "Poppins, sans-serif" }}
-              >
-                Royal{" "}
-                <span className="bg-gradient-to-r from-yellow-300 via-yellow-500 to-yellow-300 bg-clip-text text-transparent">
-                  Enfield
-                </span>
-              </h2>
+        <div>
+          <h2
+            className="text-3xl md:text-4xl font-extrabold tracking-[2px] text-black uppercase"
+            style={{ fontFamily: "Poppins, sans-serif" }}
+          >
+            Royal{" "}
+            <span className="bg-gradient-to-r from-yellow-300 via-yellow-500 to-yellow-300 bg-clip-text text-transparent">
+              Enfield
+            </span>
+          </h2>
 
-              <div className="mt-3 w-28 h-[3px] bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-full animate-pulse" />
-            </div>
+          <div className="mt-3 w-28 h-[3px] bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-full animate-pulse" />
+        </div>
 
-        
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-8">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-8 mt-8">
           {bikes.map((bike) => (
             <Link key={bike.id} to={bike.link}>
               <div className="flex flex-col items-center group">
@@ -97,22 +96,55 @@ function RoyalEnfieldModels() {
                   />
                 </div>
 
-                
                 <div className="mt-3 text-center">
                   <p className="text-sm sm:text-base font-semibold text-gray-900 tracking-wide">
                     {bike.name}
                   </p>
 
-                  
                   <span className="block mx-auto mt-2 w-10 border-b border-gray-300"></span>
                 </div>
               </div>
             </Link>
           ))}
         </div>
+
+        {/* Explore Products Button */}
+        <div className="flex justify-center mt-12">
+           <Link to={'/products'} type="button" class="button">
+          <span className="fold"></span>
+
+          <div className="points_wrapper">
+            <i className="point"></i>
+            <i className="point"></i>
+            <i className="point"></i>
+            <i className="point"></i>
+            <i className="point"></i>
+            <i className="point"></i>
+            <i className="point"></i>
+            <i className="point"></i>
+            <i className="point"></i>
+            <i className="point"></i>
+          </div>
+
+          <span className="inner">
+            <svg
+              className="icon"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2.5"
+            >
+              <polyline points="13.18 1.37 13.18 9.64 21.45 9.64 10.82 22.63 10.82 14.36 2.55 14.36 13.18 1.37"></polyline>
+            </svg>
+            Explore Products
+          </span>
+        </Link>
+        </div>
       </div>
     </section>
   );
 }
-
 export default RoyalEnfieldModels;

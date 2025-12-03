@@ -1,4 +1,3 @@
-// Profile.jsx
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import {
@@ -8,7 +7,7 @@ import {
   FaMapMarkerAlt,
 } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
-import { logoutUser } from "../slices/authSlice";
+import { logoutUser, updateUserProfile } from "../slices/authSlice";
 import { fetchOrdersByUser } from "../slices/orderSlice";
 import axios from "axios";
 import { toast } from "sonner";
@@ -48,25 +47,26 @@ function Profile() {
     setIsEditing(true);
   };
 
-  // SAVE UPDATED PROFILE
-  const saveProfile = async () => {
-    try {
-      const res = await axios.put(
-        `http://localhost:5000/api/users/${user._id}`,
-        editData
-      );
+ // SAVE UPDATED PROFILE (Redux version)
+const saveProfile = async () => {
+  try {
+    const updatedUser = await dispatch(updateUserProfile(editData)).unwrap();
 
-      // Update localStorage user (to keep login active)
-      localStorage.setItem("user", JSON.stringify(res.data));
+    // Update auth user in localStorage (important)
+    const storedUser = JSON.parse(localStorage.getItem("userInfo"));
+    const newUserData = { ...storedUser, ...updatedUser };
+    localStorage.setItem("userInfo", JSON.stringify(newUserData));
 
-      toast.success("Profile updated successfully!");
-      setIsEditing(false);
-      window.location.reload(); // refresh profile UI
-    } catch (err) {
-      console.error(err);
-      toast.error("Failed to update profile");
-    }
-  };
+    toast.success("Profile updated successfully!");
+    setIsEditing(false);
+
+    window.location.reload(); // Refresh UI
+  } catch (err) {
+    console.error(err);
+    toast.error("Failed to update profile");
+  }
+};
+
 
   // Tab switching
   const handleTabClick = (tab) => {
