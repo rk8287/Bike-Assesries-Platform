@@ -12,7 +12,10 @@ const SuccessRoute = ({ children }) => {
   useEffect(() => {
     const fetchOrder = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/orders/${id}`);
+        const res = await axios.get(
+          `${import.meta.env.VITE_API_URL}/orders/${id}`
+        );
+
         // Only allow the user who placed the order
         if (res.data.userId === user?._id) {
           setValidOrder(res.data);
